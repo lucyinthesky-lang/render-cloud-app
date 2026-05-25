@@ -13,8 +13,10 @@ const pool = new Pool({
 });
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+const viewsPath = process.env.RENDER 
+  ? path.join(process.cwd(), 'views') 
+  : path.join(__dirname, 'views');
+app.set('views', viewsPath);app.use(express.static(path.join(__dirname, 'public')));
 
 // Ruta principal
 app.get('/', async (req, res) => {
